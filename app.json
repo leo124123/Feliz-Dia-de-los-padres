@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "¡Feliz Día del Padre! ❤️",
+    "slug": "feliz-dia-de-los-padres",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0F172A",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.luis.felizdiadelospadres"
+    }
+  }
+}

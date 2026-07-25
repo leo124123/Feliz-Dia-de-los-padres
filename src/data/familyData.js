@@ -1,0 +1,50 @@
+export const FAMILY_DATA = [
+  {
+    id: 'esposa',
+    role: 'Esposa',
+    emoji: '❤️',
+    avatar: '💍',
+    color: '#E91E63',
+    lightBg: '#FCE4EC',
+    darkBg: '#880E4F',
+    gradient: ['#EC407A', '#AD1457'],
+    word: 'AMOR',
+    hint: 'Pista: Lo que construimos juntos cada día en nuestra hermosa familia.',
+    sender: 'Tu Esposa',
+    subtitle: 'Un mensaje especial de tu compañera de vida',
+    messageTitle: 'Para el hombre de mi vida 💖',
+    message: `Querido esposo,\n\nGracias por ser la columna vertebral de nuestro hogar, por tu paciencia infinita, por tus abrazos cálidos y por amar a nuestros hijos con tanto corazón.\n\nCada día a tu lado confirma que elegí al mejor compañero para este viaje. ¡Feliz Día del Padre, mi amor! Te amo con todo mi corazón. Y espero que el señor te recompense con todos sus dones y carismas. 💕`
+  },
+  {
+    id: 'hijo',
+    role: 'Hijo',
+    emoji: '👦',
+    avatar: '⚽',
+    color: '#1E88E5',
+    lightBg: '#E3F2FD',
+    darkBg: '#0D47A1',
+    gradient: ['#42A5F5', '#1565C0'],
+    word: 'CAMPEON',
+    hint: 'Pista: Lo que me dices cuando logramos algo juntos o ganamos un juego.',
+    sender: 'Tu Hijo',
+    subtitle: 'El mensaje de tu gran campeón',
+    messageTitle: '¡Para el mejor héroe y mi guía! ⚽🏆',
+    message: `¡Papá! 💪\n\nGracias por enseñarme a ser fuerte, por enseñarme tantas cosas útiles y por estar siempre ahí cuando necesito un buen consejo o simplemente reírnos de cualquier tontería.\n\nEres mi mayor modelo a seguir y mi mejor amigo. ¡Te quiero muchísimo y espero que pasemos un día genial juntos!`
+  },
+  {
+    id: 'hija',
+    role: 'Hija',
+    emoji: '👧',
+    avatar: '👑',
+    color: '#8E24AA',
+    lightBg: '#F3E5F5',
+    darkBg: '#4A148C',
+    gradient: ['#AB47BC', '#6A1B9A'],
+    word: 'PRINCESA',
+    hint: 'Pista: La palabra cariñosa con la que me sueles llamar.',
+    sender: 'Tu Hija',
+    subtitle: 'El regalo del corazón de tu hija',
+    messageTitle: '¡Para el primer amor de mi vida! 👑✨',
+    message: `Papi consentidor,\n\nGracias por hacerme sentir tan protegida y querida todos los días. Siempre sabes cómo sacarme una sonrisa y tus abrazos lo curan todo.\n\nNo hay en el mundo un papá más lindo y atento que tú. Te adoro con toda mi alma. ¡Feliz día del padre!`
+  }
+];
