@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated } from 'react-native';
 
 export default function EnvelopeLetter({ person, onComplete }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +8,7 @@ export default function EnvelopeLetter({ person, onComplete }) {
   const handleOpen = () => {
     Animated.sequence([
       Animated.timing(scaleAnim, {
-        toValue: 0.92,
+        toValue: 0.93,
         duration: 120,
         useNativeDriver: true,
       }),
@@ -31,70 +29,70 @@ export default function EnvelopeLetter({ person, onComplete }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Role Title */}
-      <Text style={[styles.roleHeader, { color: person.color }]}>
-        {person.emoji} Carta de {person.role}
+      {/* Role Title Header */}
+      <Text style={[styles.roleHeader, { color: person?.color || '#FF007F' }]}>
+        {person?.emoji} Carta de {person?.role}
       </Text>
 
       {!isOpen ? (
-        /* CLOSED ENVELOPE CARD */
+        /* VIBRANT CLOSED ENVELOPE CARD */
         <View style={styles.envelopeWrapper}>
           <Text style={styles.instructionText}>
             👇 Toca el centro del sello para abrir tu carta secreta 👇
           </Text>
 
           <Animated.View style={[{ transform: [{ scale: scaleAnim }] }, styles.envelopeCard]}>
-            {/* Flap triangles & design */}
+            {/* Top Flap Icon */}
             <View style={styles.envelopeTopFlap}>
-              <Text style={styles.envelopeIcon}>{person.avatar}</Text>
+              <Text style={styles.envelopeIcon}>{person?.avatar || '✉️'}</Text>
             </View>
 
             <View style={styles.envelopeBody}>
               <Text style={styles.forText}>Para: Papá ❤️</Text>
-              <Text style={styles.fromText}>De: {person.sender}</Text>
+              <Text style={styles.fromText}>De: {person?.sender}</Text>
             </View>
 
-            {/* INTERACTIVE SEAL IN THE MIDDLE */}
+            {/* INTERACTIVE WAX SEAL IN THE CENTER */}
             <TouchableOpacity 
               activeOpacity={0.8}
-              style={[styles.waxSeal, { backgroundColor: person.color }]} 
+              style={[styles.waxSeal, { backgroundColor: person?.color || '#FF007F', shadowColor: person?.color || '#FF007F' }]} 
               onPress={handleOpen}
             >
-              <Text style={styles.waxSealEmoji}>{person.emoji}</Text>
+              <Text style={styles.waxSealEmoji}>{person?.emoji}</Text>
               <Text style={styles.waxSealText}>ABRIR</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
       ) : (
-        /* OPENED LETTER CONTENT */
+        /* OPENED VIBRANT ELEGANT LETTER CONTENT */
         <View style={styles.letterWrapper}>
-          <View style={styles.letterPaper}>
+          <View style={[styles.letterPaper, { borderColor: person?.color || '#FF007F' }]}>
             {/* Header */}
             <View style={styles.letterHeader}>
-              <Text style={styles.letterTitle}>{person.messageTitle}</Text>
-              <Text style={styles.letterDate}>Día del Padre 2026</Text>
+              <Text style={styles.letterTitle}>{person?.messageTitle}</Text>
+              <Text style={styles.letterDate}>Día del Padre • 2026</Text>
             </View>
 
-            {/* Divider line */}
-            <View style={[styles.divider, { backgroundColor: person.color }]} />
+            {/* Glowing Divider line */}
+            <View style={[styles.divider, { backgroundColor: person?.color || '#FF007F' }]} />
 
             {/* Body */}
-            <Text style={styles.letterBody}>{person.message}</Text>
+            <Text style={styles.letterBody}>{person?.message}</Text>
 
             {/* Signature */}
             <View style={styles.signatureBox}>
               <Text style={styles.signatureTag}>Con todo mi amor,</Text>
-              <Text style={[styles.signatureName, { color: person.color }]}>{person.sender}</Text>
+              <Text style={[styles.signatureName, { color: person?.color || '#FF007F' }]}>{person?.sender}</Text>
             </View>
           </View>
 
           {/* Action to complete */}
           <TouchableOpacity 
-            style={[styles.finishBtn, { backgroundColor: person.color }]} 
+            style={[styles.finishBtn, { backgroundColor: person?.color || '#00FF87' }]} 
             onPress={onComplete}
             activeOpacity={0.85}
           >
-            <Text style={styles.finishBtnText}>Guardar y Volver al Inicio 🏠</Text>
+            <Text style={styles.finishBtnText}>Guardar Recuerdo y Volver al Inicio 🏠</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -108,9 +106,10 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 50,
     alignItems: 'center',
+    backgroundColor: '#0F0C20',
   },
   roleHeader: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: '900',
     marginBottom: 20,
     textAlign: 'center',
@@ -123,66 +122,65 @@ const styles = StyleSheet.create({
   instructionText: {
     color: '#FBBF24',
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '800',
     textAlign: 'center',
     marginBottom: 20,
   },
   envelopeCard: {
     width: '100%',
-    height: 320,
+    height: 330,
     backgroundColor: '#FDE68A',
-    borderRadius: 24,
-    borderWidth: 3,
+    borderRadius: 26,
+    borderWidth: 3.5,
     borderColor: '#F59E0B',
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: '#F59E0B',
     shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.35,
-    shadowRadius: 12,
+    shadowOpacity: 0.45,
+    shadowRadius: 14,
     elevation: 10,
   },
   envelopeTopFlap: {
     position: 'absolute',
-    top: 15,
+    top: 18,
     alignItems: 'center',
   },
   envelopeIcon: {
-    fontSize: 32,
+    fontSize: 34,
   },
   envelopeBody: {
     alignItems: 'center',
     marginTop: 40,
   },
   forText: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: '900',
     color: '#78350F',
   },
   fromText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#92400E',
     marginTop: 6,
   },
   waxSeal: {
     position: 'absolute',
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 96,
+    height: 96,
+    borderRadius: 48,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 4,
     borderColor: '#FFFFFF',
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    elevation: 8,
+    shadowOpacity: 0.6,
+    shadowRadius: 10,
+    elevation: 10,
   },
   waxSealEmoji: {
-    fontSize: 28,
+    fontSize: 32,
   },
   waxSealText: {
     color: '#FFFFFF',
@@ -196,17 +194,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   letterPaper: {
-    backgroundColor: '#FFFBEB',
-    borderRadius: 20,
+    backgroundColor: '#1F1646',
+    borderRadius: 24,
     padding: 24,
     width: '100%',
     borderWidth: 2,
-    borderColor: '#FCD34D',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 10,
     marginBottom: 20,
   },
   letterHeader: {
@@ -215,13 +212,13 @@ const styles = StyleSheet.create({
   letterTitle: {
     fontSize: 22,
     fontWeight: '900',
-    color: '#1E1B4B',
+    color: '#FFFFFF',
     marginBottom: 4,
   },
   letterDate: {
     fontSize: 12,
-    color: '#B45309',
-    fontWeight: '600',
+    color: '#FBBF24',
+    fontWeight: '800',
   },
   divider: {
     height: 3,
@@ -231,7 +228,7 @@ const styles = StyleSheet.create({
   },
   letterBody: {
     fontSize: 16,
-    color: '#374151',
+    color: '#E0E7FF',
     lineHeight: 26,
     fontWeight: '500',
   },
@@ -241,11 +238,11 @@ const styles = StyleSheet.create({
   },
   signatureTag: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#C7D2FE',
     fontStyle: 'italic',
   },
   signatureName: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '900',
     marginTop: 2,
   },
@@ -263,6 +260,6 @@ const styles = StyleSheet.create({
   finishBtnText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '800',
+    fontWeight: '900',
   },
 });

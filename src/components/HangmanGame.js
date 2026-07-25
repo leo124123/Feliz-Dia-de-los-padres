@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 const ALPHABET = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
 const MAX_LIVES = 6;
 
 export default function HangmanGame({ person, onWin, onBack }) {
-  const targetWord = person.word.toUpperCase();
+  const targetWord = (person?.word || '').toUpperCase();
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [mistakes, setMistakes] = useState(0);
 
-  // Normalize string for checking (accent-insensitive if needed)
   const isLetterGuessed = (letter) => guessedLetters.includes(letter);
-
-  // Check if word is completely guessed
-  const isWon = targetWord.split('').every((char) => char === ' ' || isLetterGuessed(char));
+  const isWon = targetWord.length > 0 && targetWord.split('').every((char) => char === ' ' || isLetterGuessed(char));
   const isLost = mistakes >= MAX_LIVES;
 
   const handleGuess = (letter) => {
@@ -38,15 +35,17 @@ export default function HangmanGame({ person, onWin, onBack }) {
         <TouchableOpacity style={styles.backBtn} onPress={onBack}>
           <Text style={styles.backBtnText}>← Volver</Text>
         </TouchableOpacity>
-        <Text style={[styles.headerRole, { color: person.color }]}>
-          {person.emoji} Desafío de {person.role}
-        </Text>
+        <View style={[styles.roleTag, { borderColor: person?.color || '#FF007F', backgroundColor: '#1F1646' }]}>
+          <Text style={[styles.headerRole, { color: person?.color || '#FF007F' }]}>
+            {person?.emoji} Desafío de {person?.role}
+          </Text>
+        </View>
       </View>
 
       {/* Main Challenge Card */}
-      <View style={styles.gameCard}>
+      <View style={[styles.gameCard, { borderColor: person?.color || '#FF007F' }]}>
         <Text style={styles.gameTitle}>Adivina la Palabra Secreta 🔍</Text>
-        <Text style={styles.hintText}>{person.hint}</Text>
+        <Text style={styles.hintText}>{person?.hint}</Text>
 
         {/* Lives Counter */}
         <View style={styles.livesContainer}>
@@ -69,27 +68,27 @@ export default function HangmanGame({ person, onWin, onBack }) {
                 key={index} 
                 style={[
                   styles.letterTile,
-                  revealed && styles.letterTileRevealed,
-                  isWon && { borderColor: '#10B981', backgroundColor: '#064E3B' }
+                  revealed && { borderColor: person?.color || '#FF007F', backgroundColor: '#130E2A' },
+                  isWon && { borderColor: '#00FF87', backgroundColor: '#064E3B' }
                 ]}
               >
-                <Text style={styles.letterText}>
-                  {revealed ? letter : ''}
+                <Text style={[styles.letterText, isWon && { color: '#00FF87' }]}>
+                  {revealed ? letter : '?'}
                 </Text>
               </View>
             );
           })}
         </View>
 
-        {/* Status Message */}
+        {/* Status Messages */}
         {isWon && (
           <View style={styles.winBanner}>
             <Text style={styles.winTitle}>¡CORRECTO! 🎉</Text>
             <Text style={styles.winSubtitle}>Has desbloqueado la carta secreta.</Text>
             <TouchableOpacity 
-              style={[styles.continueBtn, { backgroundColor: person.color }]} 
+              style={[styles.continueBtn, { backgroundColor: person?.color || '#FF007F' }]} 
               onPress={onWin}
-              activeOpacity={0.8}
+              activeOpacity={0.85}
             >
               <Text style={styles.continueBtnText}>Abrir la Carta ✉️</Text>
             </TouchableOpacity>
@@ -144,6 +143,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 40,
     alignItems: 'center',
+    backgroundColor: '#0F0C20',
   },
   topBar: {
     flexDirection: 'row',
@@ -153,39 +153,46 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   backBtn: {
-    backgroundColor: '#312E81',
+    backgroundColor: '#2A1B63',
     paddingVertical: 8,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   backBtnText: {
-    color: '#C7D2FE',
-    fontWeight: '700',
+    color: '#E0E7FF',
+    fontWeight: '900',
     fontSize: 14,
   },
+  roleTag: {
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    borderWidth: 1.5,
+  },
   headerRole: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '900',
   },
   gameCard: {
-    backgroundColor: '#1E1B4B',
+    backgroundColor: '#1F1646',
     borderRadius: 24,
     padding: 22,
     width: '100%',
     alignItems: 'center',
-    marginBottom: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    marginBottom: 22,
+    borderWidth: 2,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 8,
   },
   gameTitle: {
     color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '800',
+    fontSize: 22,
+    fontWeight: '900',
     marginBottom: 8,
     textAlign: 'center',
   },
@@ -201,15 +208,17 @@ const styles = StyleSheet.create({
   livesContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    marginBottom: 18,
+    backgroundColor: '#120D2B',
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
   },
   livesLabel: {
     color: '#E0E7FF',
-    fontWeight: '700',
+    fontWeight: '900',
     marginRight: 8,
     fontSize: 14,
   },
@@ -227,19 +236,15 @@ const styles = StyleSheet.create({
   letterTile: {
     width: 44,
     height: 52,
-    borderRadius: 10,
-    backgroundColor: '#312E81',
+    borderRadius: 12,
+    backgroundColor: '#120D2B',
     borderWidth: 2,
-    borderColor: '#6366F1',
+    borderColor: '#3B2B7A',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  letterTileRevealed: {
-    backgroundColor: '#4338CA',
-    borderColor: '#A5B4FC',
-  },
   spaceTile: {
-    width: 20,
+    width: 18,
   },
   letterText: {
     color: '#FFFFFF',
@@ -247,17 +252,17 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   winBanner: {
-    marginTop: 20,
+    marginTop: 18,
     alignItems: 'center',
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
-    padding: 16,
-    borderRadius: 16,
+    backgroundColor: 'rgba(0, 255, 135, 0.15)',
+    padding: 18,
+    borderRadius: 18,
     width: '100%',
-    borderWidth: 1,
-    borderColor: '#10B981',
+    borderWidth: 1.5,
+    borderColor: '#00FF87',
   },
   winTitle: {
-    color: '#34D399',
+    color: '#00FF87',
     fontSize: 22,
     fontWeight: '900',
   },
@@ -269,24 +274,29 @@ const styles = StyleSheet.create({
   continueBtn: {
     marginTop: 12,
     paddingVertical: 14,
-    paddingHorizontal: 24,
     borderRadius: 14,
     width: '100%',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 6,
   },
   continueBtnText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '800',
+    fontWeight: '900',
+    letterSpacing: 0.5,
   },
   loseBanner: {
-    marginTop: 20,
+    marginTop: 18,
     alignItems: 'center',
     backgroundColor: 'rgba(239, 68, 68, 0.15)',
-    padding: 16,
-    borderRadius: 16,
+    padding: 18,
+    borderRadius: 18,
     width: '100%',
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: '#EF4444',
   },
   loseTitle: {
@@ -304,11 +314,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 12,
-    marginTop: 10,
+    marginTop: 8,
   },
   retryBtnText: {
     color: '#FFFFFF',
-    fontWeight: '800',
+    fontWeight: '900',
+    fontSize: 13,
   },
   keyboardContainer: {
     flexDirection: 'row',
@@ -320,28 +331,28 @@ const styles = StyleSheet.create({
   keyButton: {
     width: 38,
     height: 44,
-    borderRadius: 8,
-    backgroundColor: '#3730A3',
+    borderRadius: 10,
+    backgroundColor: '#2A1B63',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#4F46E5',
+    borderColor: 'rgba(255, 255, 255, 0.15)',
   },
   keyCorrect: {
     backgroundColor: '#059669',
-    borderColor: '#10B981',
+    borderColor: '#00FF87',
   },
   keyWrong: {
-    backgroundColor: '#1F2937',
-    borderColor: '#374151',
-    opacity: 0.4,
+    backgroundColor: '#120D2B',
+    borderColor: '#2A1B63',
+    opacity: 0.3,
   },
   keyText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '900',
   },
   keyTextDisabled: {
-    color: '#9CA3AF',
+    color: '#64748B',
   },
 });

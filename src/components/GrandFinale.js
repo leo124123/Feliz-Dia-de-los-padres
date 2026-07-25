@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function GrandFinale({ onReset }) {
   return (
@@ -12,9 +10,12 @@ export default function GrandFinale({ onReset }) {
         <Text style={styles.heartsEmoji}>❤️ 💖 👑 💖 ❤️</Text>
       </View>
 
-      {/* Main Announcement */}
+      {/* Main Vibrant Celebration Card */}
       <View style={styles.card}>
-        <Text style={styles.goldBadge}>¡RECOMPENSA FINAL DESBLOQUEADA!</Text>
+        <View style={styles.goldBadgeChip}>
+          <Text style={styles.goldBadgeText}>✨ RECOMPENSA FINAL DESBLOQUEADA ✨</Text>
+        </View>
+
         <Text style={styles.mainTitle}>¡Papi, Te Amamos! ❤️</Text>
         <Text style={styles.subtitle}>
           ¡Eres el mejor papá del mundo entero! 🌍✨
@@ -62,13 +63,14 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 50,
     alignItems: 'center',
+    backgroundColor: '#0F0C20',
   },
   trophyBox: {
     alignItems: 'center',
     marginBottom: 20,
   },
   trophyEmoji: {
-    fontSize: 80,
+    fontSize: 84,
   },
   heartsEmoji: {
     fontSize: 22,
@@ -76,25 +78,33 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
   },
   card: {
-    backgroundColor: '#1E1B4B',
-    borderRadius: 24,
+    backgroundColor: '#1F1646',
+    borderRadius: 26,
     padding: 24,
     width: '100%',
     alignItems: 'center',
-    borderWidth: 2,
+    borderWidth: 2.5,
     borderColor: '#F59E0B',
     shadowColor: '#F59E0B',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 14,
     elevation: 10,
   },
-  goldBadge: {
+  goldBadgeChip: {
+    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: '#F59E0B',
+    marginBottom: 12,
+  },
+  goldBadgeText: {
     color: '#FBBF24',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 1.5,
-    marginBottom: 8,
+    letterSpacing: 1,
   },
   mainTitle: {
     fontSize: 32,
@@ -106,15 +116,15 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#FDE047',
-    fontWeight: '700',
+    fontWeight: '900',
     textAlign: 'center',
     marginBottom: 16,
   },
   divider: {
     height: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: '#F59E0B',
     width: '100%',
-    marginVertical: 12,
+    marginVertical: 14,
   },
   messageBody: {
     color: '#E0E7FF',
@@ -130,11 +140,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     marginVertical: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    paddingVertical: 12,
+    backgroundColor: '#120D2B',
+    paddingVertical: 14,
     paddingHorizontal: 20,
-    borderRadius: 18,
+    borderRadius: 20,
     width: '100%',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
   },
   familyItem: {
     alignItems: 'center',
@@ -145,7 +157,7 @@ const styles = StyleSheet.create({
   familyRole: {
     color: '#C7D2FE',
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '900',
     marginTop: 2,
   },
   plusSymbol: {
@@ -154,15 +166,15 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   foreverText: {
-    color: '#F472B6',
+    color: '#FF007F',
     fontSize: 18,
-    fontWeight: '800',
+    fontWeight: '900',
     marginVertical: 14,
   },
   resetBtn: {
-    backgroundColor: '#312E81',
-    borderWidth: 1,
-    borderColor: '#6366F1',
+    backgroundColor: '#2A1B63',
+    borderWidth: 1.5,
+    borderColor: '#0099FF',
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 14,
@@ -171,8 +183,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   resetBtnText: {
-    color: '#FFFFFF',
+    color: '#0099FF',
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: '900',
   },
 });

@@ -95,11 +95,11 @@ export default function App() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#0F0C20',
     paddingTop: RNStatusBar.currentHeight || 0,
   },
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#0F0C20',
   },
 });
